@@ -1,0 +1,11 @@
+Package: fdrID
+Type: Package
+Title: Computes local false discovery rate probabilities using JAGS, Stan and code from Efron, Turnbull and Narasimhan locfdr
+Version: 1.0
+Date: 2015-05-25
+Author: Nick Petraco
+Maintainer: <npetraco@gmail.com>
+Description: Using ideas from Ann. Stat. 35(4):1351-1377 (2007), and some handy code from the former locfdr package, this package computes local false discovery rate (i.e. posterior error probability) estimates for classification/discrimination tasks using a Bayesian Poission regression. Specifically, the Bayesian Poission regression is used to estimate the denominator of Bayes Theorem within Efron's two-groups empirical Bayes methodology. The regression is a heirarical model and carried out with either JAGS (mcmc-jags.sourceforge.net) or Stan (mc-stan.org), via their R interfaces.
+SystemRequirements: JAGS (http://mcmc-jags.sourceforge.net), Stan (mc-stan.org), rstan (https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started)
+License: GPL (>= 2)
+Depends: R2jags (>= 0.5-6)
