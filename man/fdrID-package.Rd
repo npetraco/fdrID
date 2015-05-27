@@ -3,7 +3,7 @@
 \alias{fdrID}
 \docType{package}
 \title{
-Computes local false discovery rate probabilities using JAGS, Stan and code from Efron, Turnbull and Narasimhan locfdr
+Computes local false discovery rate probabilities using JAGS, Stan and code from the locfdr package
 }
 \description{
 Using ideas from Ann. Stat. 35(4):1351-1377 (2007), and some handy code from the former locfdr package, this package computes local false discovery rate (i.e. posterior error probability) estimates for classification/discrimination tasks using a Bayesian Poission regression. Specifically, the Bayesian Poission regression is used to estimate the denominator of Bayes Theorem within Efron's two-groups empirical Bayes methodology. The regression is a heirarical model and carried out with either JAGS (mcmc-jags.sourceforge.net) or Stan (mc-stan.org), via their R interfaces.
