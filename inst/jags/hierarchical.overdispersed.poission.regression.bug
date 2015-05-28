@@ -1,0 +1,21 @@
+model
+{
+    for (i in 1:K) {
+        for (j in 1:degree) {
+            zb.tmp[i, j] <- beta[j] * z[i, j]
+        }
+    }
+    for (i in 1:K) {
+        y[i] ~ dpois(lambda[i])
+        log(lambda[i]) <- offset + sum(zb.tmp[i, ] + eps[i])
+        eps[i] ~ dnorm(0.00000E+00, tau.eps)
+    }
+    offset ~ dnorm(0.00000E+00, tau.beta)
+    for (j in 1:degree) {
+        beta[j] ~ dnorm(0.00000E+00, tau.beta)
+    }
+    tau.beta <- pow(sig.beta, -2)
+    sig.beta ~ dunif(0.00000E+00, 100)
+    tau.eps <- pow(sig.eps, -2)
+    sig.eps ~ dunif(0.00000E+00, 100)
+}
