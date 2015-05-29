@@ -1,3 +1,13 @@
+#Global variables needed for either JAGS or Stan runs:
+#Default input values for heirarcical overdispersed poisson regression:
+# count.data <- list ("K", "y", "z", "degree")
+# 
+# count.parameters <- c ("offset","beta","sig.beta","lambda","eps")
+# 
+# count.inits <- function (){
+#   list(beta=rnorm(degree), offset=rnorm(1), sig.beta=runif(1), eps=rnorm(K))
+# }
+
 #--------------------------------------------
 #' @title split,scores
 #' @description Split a set of scores into null and non-null sets
@@ -48,10 +58,10 @@ split.scores<-function(score.mat,lbls)
 #' @examples
 #' XXXX
 #--------------------------------------------
-scores.histograms<-function(null.vec, nonnull.vec, ylim.max) {
+scores.histograms<-function(null.vec, nonnull.vec, xlim.min=0, xlim.max=1, ylim.max=max(c(null.vec,nonnull.vec))) {
   
-  hist(null.vec,probability=TRUE,xlim=c(0,1),ylim=c(0,ylim.max),col=rgb(1,0,0,1/4),main="",xlab="")
+  hist(null.vec, probability=TRUE, xlim=c(xlim.min,xlim.max), ylim=c(0,ylim.max), col=rgb(1,0,0,1/4), main="",xlab="")
   par(new=TRUE)
-  hist(nonnull.vec,probability=TRUE,xlim=c(0,1),ylim=c(0,ylim.max),col=rgb(0,1,0,1/4),main="Null(KNM, red) and Non-null(KM, green)",xlab="Platt-score")
+  hist(nonnull.vec, probability=TRUE, xlim=c(xlim.min,xlim.max), ylim=c(0,ylim.max), col=rgb(0,1,0,1/4), main="Null(KNM, red) and Non-null(KM, green)", xlab="Platt-score")
   
 }

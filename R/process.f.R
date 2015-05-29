@@ -1,29 +1,3 @@
-#-------------------------------------------------------
-#Internal function.
-#Count useful things from the histogram of joint z-scores
-#Largely taken from locfdr code by Efron, Turnbull and Narasimhan
-#-------------------------------------------------------
-preprocess.z<-function(zscores,bre) {
-  
-  #Taken from locfdr:
-  lo <- min(zscores)
-  up <- max(zscores)
-  
-  zzz <- pmax(pmin(zscores, up), lo)
-  breaks <- seq(lo, up, length = bre)
-  zh <- hist(zzz, breaks = breaks, plot = F)
-  x <- (breaks[-1] + breaks[ - length(breaks)])/2
-  y <- zh$counts
-  K <- length(y)
-  N <- length(zscores)
-  
-  zinfo<-list(x,y,K,N)
-  names(zinfo)<-c("bin midpoints","counts","num bins", "num scores")
-  
-  return(zinfo)
-  
-}
-
 #--------------------------------------------
 #' @title process.f
 #' @description Computes estimates of the posterior null probabilities using f(x), the denominator of Bayes'
@@ -50,7 +24,6 @@ preprocess.z<-function(zscores,bre) {
 #' @return sig0, null standard dev estimates
 #' @return p0, null prior estimates
 #' @return f(x) estimates.
-#' @
 #'
 #' 
 #' @references locfdr package by Efron, Turnbull and Narasimhan. 
@@ -60,7 +33,7 @@ preprocess.z<-function(zscores,bre) {
 #' XXXX
 #--------------------------------------------
 process.f<-function(zscores,xmids,pct0,lam.mat){
-
+  
   num.sims<-nrow(lam.mat)
   KK<-ncol(lam.mat)
   
