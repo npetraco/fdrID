@@ -9,13 +9,13 @@
 # }
 
 #--------------------------------------------
-#' @title split,scores
+#' @title split.scores
 #' @description Split a set of scores into null and non-null sets
 #' 
-#' @details Split a set of scores into null (non-match) and non-null (match) sets.
+#' @details Split a set of scores into null (non-match) and non-null (match) sets. NOTE: One non-null score is assumed per row in \code{score.mat}
 #'
-#' @param score.mat 
-#' @param lbls
+#' @param score.mat A matrix of null (non-match) and non-null (match) scores. 
+#' @param lbls      Correct ID labels.
 #' 
 #' @return a list of null and non-null scores
 #' 
@@ -49,7 +49,7 @@ split.scores<-function(score.mat,lbls)
 #' @title scores.histograms
 #' @description Make a nice plot of overlapped histograms for each set of scores.
 #' 
-#' @details Make a nice plot of overlapped histograms for each set of scores.
+#' @details Make a nice plot of overlapped histograms for each set of scores. NOTE: the y-axis is density not frequency.
 #'
 #' @param null.vec Non-matching scores
 #' @param nonnull.vec Matching scores
@@ -58,10 +58,10 @@ split.scores<-function(score.mat,lbls)
 #' @examples
 #' XXXX
 #--------------------------------------------
-scores.histograms<-function(null.vec, nonnull.vec, xlim.min=0, xlim.max=1, ylim.max=max(c(null.vec,nonnull.vec))) {
+scores.histograms<-function(null.vec, nonnull.vec, xlim.min=min(c(null.vec, nonnull.vec)), xlim.max=max(c(null.vec, nonnull.vec)), ylim.max=20) {
   
   hist(null.vec, probability=TRUE, xlim=c(xlim.min,xlim.max), ylim=c(0,ylim.max), col=rgb(1,0,0,1/4), main="",xlab="")
   par(new=TRUE)
-  hist(nonnull.vec, probability=TRUE, xlim=c(xlim.min,xlim.max), ylim=c(0,ylim.max), col=rgb(0,1,0,1/4), main="Null(KNM, red) and Non-null(KM, green)", xlab="Platt-score")
+  hist(nonnull.vec, probability=TRUE, xlim=c(xlim.min,xlim.max), ylim=c(0,ylim.max), col=rgb(0,1,0,1/4), main="Null(KNM, red) and Non-null(KM, green)", xlab="Score")
   
 }

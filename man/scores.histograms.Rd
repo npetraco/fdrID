@@ -4,8 +4,8 @@
 \alias{scores.histograms}
 \title{scores.histograms}
 \usage{
-scores.histograms(null.vec, nonnull.vec, xlim.min = 0, xlim.max = 1,
-  ylim.max = max(c(null.vec, nonnull.vec)))
+scores.histograms(null.vec, nonnull.vec, xlim.min = min(c(null.vec,
+  nonnull.vec)), xlim.max = max(c(null.vec, nonnull.vec)), ylim.max = 20)
 }
 \arguments{
 \item{null.vec}{Non-matching scores}
@@ -18,7 +18,7 @@ scores.histograms(null.vec, nonnull.vec, xlim.min = 0, xlim.max = 1,
 Make a nice plot of overlapped histograms for each set of scores.
 }
 \details{
-Make a nice plot of overlapped histograms for each set of scores.
+Make a nice plot of overlapped histograms for each set of scores. NOTE: the y-axis is density not frequency.
 }
 \examples{
 XXXX

@@ -2,14 +2,14 @@
 % Please edit documentation in R/utilities.R
 \name{split.scores}
 \alias{split.scores}
-\title{split,scores}
+\title{split.scores}
 \usage{
 \method{split}{scores}(score.mat, lbls)
 }
 \arguments{
-\item{score.mat}{}
+\item{score.mat}{A matrix of null (non-match) and non-null (match) scores.}
 
-\item{lbls}{}
+\item{lbls}{Correct ID labels.}
 }
 \value{
 a list of null and non-null scores
@@ -18,7 +18,7 @@ a list of null and non-null scores
 Split a set of scores into null and non-null sets
 }
 \details{
-Split a set of scores into null (non-match) and non-null (match) sets.
+Split a set of scores into null (non-match) and non-null (match) sets. NOTE: One non-null score is assumed per row in \code{score.mat}
 }
 \examples{
 XXXX
