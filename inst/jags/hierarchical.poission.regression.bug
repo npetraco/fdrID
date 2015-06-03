@@ -7,14 +7,11 @@ model
     }
     for (i in 1:K) {
         y[i] ~ dpois(lambda[i])
-        log(lambda[i]) <- sum(zb.tmp[i, ] + eps[i])
-        eps[i] ~ dnorm(0.00000E+00, tau.eps)
+        log(lambda[i]) <- sum(zb.tmp[i, ])
     }
     for (j in 1:degree) {
         beta[j] ~ dnorm(0.00000E+00, tau.beta)
     }
     tau.beta <- pow(sig.beta, -2)
     sig.beta ~ dunif(0.00000E+00, 100)
-    tau.eps <- pow(sig.eps, -2)
-    sig.eps ~ dunif(0.00000E+00, 100)
 }

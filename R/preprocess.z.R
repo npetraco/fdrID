@@ -16,7 +16,7 @@ preprocess.z<-function(zscores,bre) {
   y <- zh$counts
   K <- length(y)
   N <- length(zscores)
-  
+    
   zinfo<-list(x,y,K,N)
   names(zinfo)<-c("bin midpoints","counts","num bins", "num scores")
   
