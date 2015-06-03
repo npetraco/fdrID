@@ -20,8 +20,12 @@ preprocess.pvalues <- function(p.values, num.bins, degree, sampler) {
     }    
   }
   
- if(sampler == "stan") {
-   
- } 
+#  if(sampler == "stan") {
+#    
+#    inits <- function (){
+#      list(beta=rnorm(degree), offset=rnorm(1), sigma_sq_beta=runif(1))
+#    }
+#    
+#  } 
   
 }

@@ -8,6 +8,8 @@
 #' @param nonnull.p.values The p-values from the non-null (match) scores
 #' @param plotQ            Diagnostic plots?
 #' 
+#' @return A list with indices of problem p/z-values and a list containing statistical test results for uniformity/normality.
+#'
 #' @examples
 #' XXXX
 #--------------------------------------------
@@ -114,4 +116,30 @@ check.ps.and.zs <- function(null.p.values, nonnull.p.values, plotQ=FALSE) {
     
   }
   
+  #Later update the is an S4 class:
+  
+  dianostic.info <- list(
+    too.big.pos.null.zs, 
+    too.big.neg.null.zs, 
+    too.big.pos.nonnull.zs, 
+    too.big.neg.nonnull.zs,
+    list(ks.results,
+        shapiro.results,
+        jb.results,
+        dago.results,
+        ad.results,
+        cvm.results,
+        lillie.results,
+        chisq.results,
+        sf.results)
+       )
+  
+  names(dianostic.info) <- c("null.posinf.idxs",
+                             "null.neginf.idxs",
+                             "nonnull.posinf.idxs",
+                             "nonnull.neginf.idxs",
+                             "test.results"
+                             )
+  
+  return(diagnostic.info)
 }
