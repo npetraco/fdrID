@@ -1,13 +1,3 @@
-#Global variables needed for either JAGS or Stan runs:
-#Default input values for heirarcical overdispersed poisson regression:
-# count.data <- list ("K", "y", "z", "degree")
-# 
-# count.parameters <- c ("offset","beta","sig.beta","lambda","eps")
-# 
-# count.inits <- function (){
-#   list(beta=rnorm(degree), offset=rnorm(1), sig.beta=runif(1), eps=rnorm(K))
-# }
-
 #--------------------------------------------
 #' @title split.scores
 #' @description Split a set of scores into null and non-null sets
