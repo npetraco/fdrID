@@ -3,10 +3,10 @@ sampler.prep <- function(p.values, num.bins=120, degree=7, interceptQ=FALSE, ove
   z.values <- qnorm(p.values)
   z.info <- preprocess.z(z.values, num.bins)
   
-  y <- z.info[["counts"]]
-  K <- z.info[["num bins"]]
-  x <- z.info[["bin midpoints"]]
- z <- ns(x, df = degree)[,]
+  y <- z.info$counts
+  K <- z.info$num.bins
+  x <- z.info$bin.midpoints
+  z <- ns(x, df = degree)[,]
   
   #Global variables needed for JAGS runs
   if(sampler == "jags") {
@@ -27,10 +27,6 @@ sampler.prep <- function(p.values, num.bins=120, degree=7, interceptQ=FALSE, ove
         list(beta=rnorm(degree), offset=rnorm(1), sig.beta=runif(1), eps=rnorm(K))
       }    
       
-      sampler.info <- list(count.data, count.parameters, count.inits, path.to.model.file)
-      names(sampler.info) <- c("Data", "Model Parameters", "Initialization Function", "BUG Model File Path")
-      return(sampler.info)
-      
     } else if(interceptQ==FALSE & overdispersionQ==TRUE) { # Model with overdispersion terms
       
       #Get model file path:
@@ -43,10 +39,6 @@ sampler.prep <- function(p.values, num.bins=120, degree=7, interceptQ=FALSE, ove
       count.inits <- function (){
         list(beta=rnorm(degree), sig.beta=runif(1), eps=rnorm(K))
       }    
-      
-      sampler.info <- list(count.data, count.parameters, count.inits, path.to.model.file)
-      names(sampler.info) <- c("Data", "Model Parameters", "Initialization Function", "BUG Model File Path")
-      return(sampler.info)
       
     } else if(interceptQ==TRUE & overdispersionQ==FALSE) { # Model with intercept term
       
@@ -61,10 +53,6 @@ sampler.prep <- function(p.values, num.bins=120, degree=7, interceptQ=FALSE, ove
         list(beta=rnorm(degree), offset=rnorm(1), sig.beta=runif(1))
       }    
       
-      sampler.info <- list(count.data, count.parameters, count.inits, path.to.model.file)
-      names(sampler.info) <- c("Data", "Model Parameters", "Initialization Function", "BUG Model File Path")
-      return(sampler.info) 
-      
     } else if(interceptQ==FALSE & overdispersionQ==FALSE) { # Model with NO intercept OR overdispersion terms
       
       #Get model file path:
@@ -77,11 +65,7 @@ sampler.prep <- function(p.values, num.bins=120, degree=7, interceptQ=FALSE, ove
       count.inits <- function (){
         list(beta=rnorm(degree), sig.beta=runif(1))
       }    
-      
-      sampler.info <- list(count.data, count.parameters, count.inits, path.to.model.file)
-      names(sampler.info) <- c("Data", "Model Parameters", "Initialization Function", "BUG Model File Path")
-      return(sampler.info)
-      
+    
     } else {
       
       stop("Model Not Implemented!")
@@ -89,6 +73,10 @@ sampler.prep <- function(p.values, num.bins=120, degree=7, interceptQ=FALSE, ove
     }
     
   }
+  
+  sampler.info <- list(count.data, count.parameters, count.inits, path.to.model.file, x)
+  names(sampler.info) <- c("Data", "Model.Parameters", "Initialization.Function", "BUG.Model.File.Path", "Bin.Midpoints")
+  return(sampler.info)
   
 #  if(sampler == "stan") {
 #    
