@@ -1,3 +1,18 @@
+#--------------------------------------------
+#' @title sampler.prep
+#' @description XXXX
+#' 
+#' @details XXXX
+#'
+#' @param XXXX
+#' 
+#' @return XXXX
+#' 
+#' @references XXXX
+#'
+#' @examples
+#' XXXX
+#--------------------------------------------
 sampler.prep <- function(p.values, num.bins=120, degree=7, interceptQ=FALSE, overdispersionQ=FALSE, sampler=c("jags","stan")) {
   
   z.values <- qnorm(p.values)
@@ -74,8 +89,8 @@ sampler.prep <- function(p.values, num.bins=120, degree=7, interceptQ=FALSE, ove
     
   }
   
-  sampler.info <- list(count.data, count.parameters, count.inits, path.to.model.file, x)
-  names(sampler.info) <- c("Data", "Model.Parameters", "Initialization.Function", "BUG.Model.File.Path", "Bin.Midpoints")
+  sampler.info <- list(count.data, count.parameters, count.inits, path.to.model.file, z.values, x)
+  names(sampler.info) <- c("Data", "Model.Parameters", "Initialization.Function", "BUG.Model.File.Path", "z.Values", "Bin.Midpoints")
   return(sampler.info)
   
 #  if(sampler == "stan") {

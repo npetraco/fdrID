@@ -51,6 +51,9 @@ process.f<-function(zscores,xmids,pct0,lam.mat){
   p0.vec<-rep(NA,num.sims)
   #p00.vec<-rep(NA,num.sims)
   fdr.mat<-array(NA,dim(lam.mat))
+  
+  #*********Blast this over all requested processes????
+  
   for(i in 1:num.sims) {
     #From locfdr:
     f<-lam.mat[i,]
@@ -61,7 +64,7 @@ process.f<-function(zscores,xmids,pct0,lam.mat){
     xmax <- xmids[imax]
     X00 <- cbind(x0 - xmax, (x0 - xmax)^2)
     
-    #Parabolic fit to central peak of f (i.e. use central matching alg):
+    #Parabolic fit to central peak of f (i.e. use central matching alg described in Efron 2006 and locfdr):
     lr <- lm(y0 ~ X00)
     co <- lr$coef
     X0 <- cbind(1, x - xmax, (x - xmax)^2)
@@ -69,17 +72,13 @@ process.f<-function(zscores,xmids,pct0,lam.mat){
     sig0 <- 1./sqrt(-2. * co[3.])            #Same as Efron 2006
     delta0.vec[i] <- delta0
     sig0.vec[i] <- sig0
-    
-    #WHY DOESNT THIS WORK TO GET p0??????????????????????????????????????????????????????!!!!!!!!!!!!!!!!!
-    #p00 <- exp(co[1.] + 0.5*( (delta0^2/sig0^2) + log( 2*pi*sig0^2) ) )
-    #p00.vec[i] <- p00
-    
+        
     l0 <- as.vector(X0 %*% co)
     f0p <- exp(l0)
     p0 <- sum(f0p)/sum(f)
     p0.vec[i] <- p0 
     
-    fdr.sim = pmin((f0p)/f, 1)
+    fdr.sim <- pmin((f0p)/f, 1)
     fdr.mat[i,] <- fdr.sim
     
   }

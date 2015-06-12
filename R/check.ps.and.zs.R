@@ -118,7 +118,7 @@ check.ps.and.zs <- function(null.p.values, nonnull.p.values, plotQ=FALSE) {
   
   #Later update the is an S4 class:
   
-  dianostic.info <- list(
+  diagnostic.info <- list(
     too.big.pos.null.zs, 
     too.big.neg.null.zs, 
     too.big.pos.nonnull.zs, 
@@ -134,7 +134,7 @@ check.ps.and.zs <- function(null.p.values, nonnull.p.values, plotQ=FALSE) {
         sf.results)
        )
   
-  names(dianostic.info) <- c("null.posinf.idxs",
+  names(diagnostic.info) <- c("null.posinf.idxs",
                              "null.neginf.idxs",
                              "nonnull.posinf.idxs",
                              "nonnull.neginf.idxs",
