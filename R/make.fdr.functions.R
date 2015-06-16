@@ -1,3 +1,16 @@
+#--------------------------------------------
+#' @title make.fdr.functions
+#' @description XXXX
+#' 
+#' @details XXXX
+#'
+#' @param XXXX
+#' 
+#' @return XXXX
+#'
+#' @examples
+#' XXXX
+#--------------------------------------------
 make.fdr.functions <- function(z.values, bin.midpoints, pct0=0.25, posterior.f.values, credibility.level=0.95, interval.type="equal.tail", plotQ=FALSE) {
   
   processed.fdr.info <- process.f(z.values, bin.midpoints, pct0=pct0, posterior.f.values)

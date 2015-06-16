@@ -13,6 +13,9 @@ check.ps.and.zs(null.p.values, nonnull.p.values, plotQ = FALSE)
 
 \item{plotQ}{Diagnostic plots?}
 }
+\value{
+A list with indices of problem p/z-values and a list containing statistical test results for uniformity/normality.
+}
 \description{
 Run diagnostic tests on p-values and z-values for both null (non-match) and non-null (match) scores.
 }

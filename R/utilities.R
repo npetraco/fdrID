@@ -55,3 +55,42 @@ scores.histograms<-function(null.vec, nonnull.vec, xlim.min=min(c(null.vec, nonn
   hist(nonnull.vec, probability=TRUE, xlim=c(xlim.min,xlim.max), ylim=c(0,ylim.max), col=rgb(0,1,0,1/4), main="Null(KNM, red) and Non-null(KM, green)", xlab="Score")
   
 }
+
+#--------------------------------------------
+#' @title hist.mode
+#' @description Handy mode function.
+#' 
+#' @details A handy mode function for a vector of data. Useful for poking around a troublesome non-null distribution 
+#' of scires
+#'
+#' @param x data 
+#' 
+#' @examples
+#' XXXX
+#--------------------------------------------
+hist.mode <- function(scores, bre, plotQ=FALSE) {
+  
+  #Taken from locfdr:
+  lo <- min(scores)
+  up <- max(scores)
+  
+  zzz <- pmax(pmin(scores, up), lo)
+  
+  breaks <- seq(lo, up, length = bre)
+  hist.info <- hist(zzz, breaks = breaks, plot = F)
+  
+  bin.cts <- hist.info$counts
+  bin.mids <- hist.info$mids
+  
+  #Mode of the histogram
+  mde <- bin.mids[which(bin.cts==max(bin.cts))]
+    
+  if(plotQ==T) {
+    hist(zzz, breaks=breaks)
+  }
+  
+  freqs <- cbind(hist.info$mids, hist.info$counts)
+  colnames(freqs) <- c("bin.mids", "counts")
+  
+  return(list(freqs, mde)) 
+}
