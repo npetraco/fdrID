@@ -15,8 +15,9 @@ XXXX
 }
 \description{
 XXXX
-
-infinite z-values
+}
+\details{
+deal with infinite z-values
 }
 \examples{
 XXXX
