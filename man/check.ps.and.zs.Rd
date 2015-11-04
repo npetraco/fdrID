@@ -4,7 +4,8 @@
 \alias{check.ps.and.zs}
 \title{check.ps.and.zs}
 \usage{
-check.ps.and.zs(null.p.values, nonnull.p.values, plotQ = FALSE)
+check.ps.and.zs(null.p.values, nonnull.p.values, printQ = FALSE,
+  plotQ = FALSE)
 }
 \arguments{
 \item{null.p.values}{The p-values from the null (non-match) scores.}

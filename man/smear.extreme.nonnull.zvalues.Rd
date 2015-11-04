@@ -5,7 +5,7 @@
 \title{smear.extreme.nonnull.zvalues}
 \usage{
 smear.extreme.nonnull.zvalues(non.null.pvalues, upper.set.zvalue = (-12),
-  mu.factor = (-0.5), p.factor = 0.95, plotQ = FALSE)
+  mu.factor = (-0.5), p.factor = 0.95, printQ = FALSE, plotQ = FALSE)
 }
 \arguments{
 \item{XXXX}{}

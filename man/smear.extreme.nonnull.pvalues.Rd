@@ -5,7 +5,7 @@
 \title{smear.extreme.nonnull.pvalues}
 \usage{
 smear.extreme.nonnull.pvalues(non.null.pvalues, upper.set.pvalue = 1e-08,
-  lower.set.pvalue = 3.5e-16, plotQ = FALSE)
+  lower.set.pvalue = 3.5e-16, printQ = FALSE, plotQ = FALSE)
 }
 \arguments{
 \item{XXXX}{}

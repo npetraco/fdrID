@@ -4,8 +4,8 @@
 \alias{scores.histograms}
 \title{scores.histograms}
 \usage{
-scores.histograms(null.vec, nonnull.vec, xlim.min = min(c(null.vec,
-  nonnull.vec)), xlim.max = max(c(null.vec, nonnull.vec)), ylim.max = 20)
+scores.histograms(null.vec, nonnull.vec, xlim.min = NULL, xlim.max = NULL,
+  ylim.max = NULL, main = NULL)
 }
 \arguments{
 \item{null.vec}{Non-matching scores}

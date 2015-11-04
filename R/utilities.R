@@ -48,11 +48,37 @@ split.scores<-function(score.mat,lbls)
 #' @examples
 #' XXXX
 #--------------------------------------------
-scores.histograms<-function(null.vec, nonnull.vec, xlim.min=min(c(null.vec, nonnull.vec)), xlim.max=max(c(null.vec, nonnull.vec)), ylim.max=20) {
+scores.histograms<-function(null.vec, nonnull.vec, xlim.min=NULL, xlim.max=NULL, ylim.max=NULL, main=NULL) {
   
-  hist(null.vec, probability=TRUE, xlim=c(xlim.min,xlim.max), ylim=c(0,ylim.max), col=rgb(1,0,0,1/4), main="",xlab="")
+  #A little sloppy, but good enough for now. This is not going to slow things down too much.
+  if(is.null(ylim.max)) {
+    ylim.max.loc <- max( c(hist(null.vec, plot = F)$density, hist(nonnull.vec, plot = F)$density) )
+  } else {
+    ylim.max.loc <- ylim.max
+  }
+  
+  if(is.null(xlim.min)) {
+    xlim.min.loc <- min(c(null.vec, nonnull.vec))
+  } else {
+    xlim.min.loc <- xlim.min
+  }
+  
+  if(is.null(xlim.max)) {
+    xlim.max.loc <- max(c(null.vec, nonnull.vec))
+  } else {
+    xlim.max.loc <- xlim.max
+  }
+  
+  if(is.null(main)) {
+    main.txt <- "Null(red) and Non-null(green)"
+  } else {
+    main.txt <- main
+  }
+  
+  
+  hist(null.vec, probability=TRUE, xlim=c(xlim.min.loc, xlim.max.loc), ylim=c(0,ylim.max.loc), col=rgb(1,0,0,1/4), main="",xlab="")
   par(new=TRUE)
-  hist(nonnull.vec, probability=TRUE, xlim=c(xlim.min,xlim.max), ylim=c(0,ylim.max), col=rgb(0,1,0,1/4), main="Null(KNM, red) and Non-null(KM, green)", xlab="Score")
+  hist(nonnull.vec, probability=TRUE, xlim=c(xlim.min.loc, xlim.max.loc), ylim=c(0,ylim.max.loc), col=rgb(0,1,0,1/4), main=main.txt, xlab="Score")
   
 }
 
@@ -61,7 +87,7 @@ scores.histograms<-function(null.vec, nonnull.vec, xlim.min=min(c(null.vec, nonn
 #' @description Handy mode function.
 #' 
 #' @details A handy mode function for a vector of data. Useful for poking around a troublesome non-null distribution 
-#' of scires
+#' of scores
 #'
 #' @param x data 
 #' 

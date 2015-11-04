@@ -14,7 +14,7 @@ Handy mode function.
 }
 \details{
 A handy mode function for a vector of data. Useful for poking around a troublesome non-null distribution
-of scires
+of scores
 }
 \examples{
 XXXX

@@ -13,7 +13,7 @@
 #' @examples
 #' XXXX
 #--------------------------------------------
-check.ps.and.zs <- function(null.p.values, nonnull.p.values, plotQ=FALSE) {
+check.ps.and.zs <- function(null.p.values, nonnull.p.values, printQ=FALSE, plotQ=FALSE) {
   
   #Check p-values for major problems:
   too.big.pos.null.zs <- which(qnorm(null.p.values)==Inf)
@@ -21,25 +21,30 @@ check.ps.and.zs <- function(null.p.values, nonnull.p.values, plotQ=FALSE) {
   too.big.pos.nonnull.zs <- which(qnorm(nonnull.p.values)==Inf)
   too.big.neg.nonnull.zs <- which(qnorm(nonnull.p.values)==-Inf)
   
-  if(length(too.big.pos.null.zs)> 0){
-    print(paste("These", length(too.big.pos.null.zs),"null p-values lead to +INFINITE z-values:"))
-    print(too.big.pos.null.zs)
+  if(printQ == TRUE) {
+    
+    print("If there are any problem null p-values, they are being dropped before further diagnostic tests...")
+    
+    if(length(too.big.pos.null.zs)> 0){
+      print(paste("These", length(too.big.pos.null.zs),"null p-values lead to +INFINITE z-values:"))
+      print(too.big.pos.null.zs)
+    }
+    if(length(too.big.neg.null.zs)> 0){
+      print(paste("These", length(too.big.neg.null.zs),"null p-values lead to -INFINITE z-values:"))
+      print(too.big.neg.null.zs)
+    }
+    if(length(too.big.pos.nonnull.zs)> 0){
+      print(paste("These", length(too.big.pos.nonnull.zs),"non-null p-values lead to +INFINITE z-values:"))
+      print(too.big.pos.nonnull.zs)
+    }
+    if(length(too.big.neg.nonnull.zs)> 0){
+      print(paste("These", length(too.neg.pos.nonnull.zs),"null p-values lead to -INFINITE z-values:"))
+      print(too.big.neg.nonnull.zs)
+    }
+    
   }
-  if(length(too.big.neg.null.zs)> 0){
-    print(paste("These", length(too.big.neg.null.zs),"null p-values lead to -INFINITE z-values:"))
-    print(too.big.neg.null.zs)
-  }
-  if(length(too.big.pos.nonnull.zs)> 0){
-    print(paste("These", length(too.big.pos.nonnull.zs),"non-null p-values lead to +INFINITE z-values:"))
-    print(too.big.pos.nonnull.zs)
-  }
-  if(length(too.big.neg.nonnull.zs)> 0){
-    print(paste("These", length(too.neg.pos.nonnull.zs),"null p-values lead to -INFINITE z-values:"))
-    print(too.big.neg.nonnull.zs)
-  }
-  
+    
   #Drop any problem null p-values before moving on with testing:
-  print("If there are any problem null p-values, they are being dropped before further diagnostic tests...")
   if(length(c(too.big.pos.null.zs, too.big.neg.null.zs))> 0) {
     cleaned.null.p.values <- null.p.values[-c(too.big.pos.null.zs, too.big.neg.null.zs)]
   } else {
@@ -48,7 +53,9 @@ check.ps.and.zs <- function(null.p.values, nonnull.p.values, plotQ=FALSE) {
     
   
   #Check to see if there is evidence that the null p-vals are not 0,1 uniform
+  options(warn=-1) #Shut off annoying warning about ties in ks test
   ks.results <-  ks.test(cleaned.null.p.values,"punif",0,1)
+  options(warn=0)
   ks.pval <- ks.results$p.value
   #print(ks.results)
   
@@ -78,23 +85,30 @@ check.ps.and.zs <- function(null.p.values, nonnull.p.values, plotQ=FALSE) {
   lillie.results <- lillie.test(cleaned.null.z.values)
   lillie.pval <- lillie.results$p.value
   
+  options(warn=-1) #Turn off chisq warning that it may not work. 
   chisq.results <- pearson.test(cleaned.null.z.values)
+  options(warn=0)
   chisq.pval <- chisq.results$p.value
+  
   
   sf.results <- sf.test(sample(cleaned.null.z.values,5000))
   sf.pval <- sf.results$p.value
   
-  print("Null test p-values:")
-  print("-------------------")
-  print(paste("K-S (uniform):       ",ks.pval))
-  print(paste("Shapiro (normality): ",shapiro.pval))
-  #print(paste("Adjusted J-B:",jb.pval))
-  #print(paste("D'Agostino:  ",dago.pval))
-  print(paste("A-D (normality):     ",ad.pval))
-  print(paste("C-vM (normality):    ",cvm.pval))
-  print(paste("Lillie (normality):  ",lillie.pval))
-  print(paste("Chi-Sq (normality):  ",chisq.pval))
-  print(paste("S-F (normality):     ",sf.pval))
+  if(printQ == TRUE) {
+    
+    print("Null test p-values:")
+    print("-------------------")
+    print(paste("K-S (uniform):       ",ks.pval))
+    print(paste("Shapiro (normality): ",shapiro.pval))
+    #print(paste("Adjusted J-B:",jb.pval))
+    #print(paste("D'Agostino:  ",dago.pval))
+    print(paste("A-D (normality):     ",ad.pval))
+    print(paste("C-vM (normality):    ",cvm.pval))
+    print(paste("Lillie (normality):  ",lillie.pval))
+    print(paste("Chi-Sq (normality):  ",chisq.pval))
+    print(paste("S-F (normality):     ",sf.pval))
+    
+  }
   
   if(plotQ==TRUE) {
     split.screen( figs = c( 2, 2 ) )

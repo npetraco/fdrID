@@ -11,7 +11,7 @@
 #' @examples
 #' XXXX
 #--------------------------------------------
-smear.extreme.nonnull.pvalues <- function(non.null.pvalues, upper.set.pvalue=1e-8, lower.set.pvalue=3.5e-16, plotQ=FALSE) {
+smear.extreme.nonnull.pvalues <- function(non.null.pvalues, upper.set.pvalue=1e-8, lower.set.pvalue=3.5e-16, printQ = FALSE, plotQ=FALSE) {
   
   #z-value corresponding to upper part of interval to be smeared out
   ztol<-qnorm(upper.set.pvalue)
@@ -35,7 +35,9 @@ smear.extreme.nonnull.pvalues <- function(non.null.pvalues, upper.set.pvalue=1e-
   
   #This is the upper bound on the smeared distribution:
   minimal.accepable.actual.pval<-min(non.null.pvalues[-pv.not.acceptable.idxs])
-  print(paste("Smallest acceptable actual p-value:", minimal.accepable.actual.pval))
+  if(printQ == TRUE) {
+    print(paste("Smallest acceptable actual p-value:", minimal.accepable.actual.pval))    
+  }
   
   #This better be TRUE:
   if(!(minimal.accepable.actual.pval>upper.set.pvalue)){
@@ -45,8 +47,10 @@ smear.extreme.nonnull.pvalues <- function(non.null.pvalues, upper.set.pvalue=1e-
   #uniform spread (smear) the very small pvalues over this interval:
   smear.interval.p <- c(minimal.accepable.actual.pval,lower.set.pvalue)
   smear.interval.z <- qnorm(smear.interval.p)
-  print(paste("The unacceptable p-values will be uniformly spread across this interval: [", smear.interval.p[2], ",", smear.interval.p[1], "]", sep=""))
-  print(paste("This corresponds to the z interval:                                      [", smear.interval.z[2], ",", smear.interval.z[1], "]", sep=""))
+  if(printQ == TRUE) {
+    print(paste("The unacceptable p-values will be uniformly spread across this interval: [", smear.interval.p[2], ",", smear.interval.p[1], "]", sep=""))
+    print(paste("This corresponds to the z interval:                                      [", smear.interval.z[2], ",", smear.interval.z[1], "]", sep=""))    
+  }
   
   
   #Candidate replacement "small" pvalues:
@@ -98,7 +102,7 @@ smear.extreme.nonnull.pvalues <- function(non.null.pvalues, upper.set.pvalue=1e-
 #' @examples
 #' XXXX
 #--------------------------------------------
-smear.extreme.nonnull.zvalues <- function(non.null.pvalues, upper.set.zvalue=(-12), mu.factor=(-0.5), p.factor=0.95, plotQ=FALSE) {
+smear.extreme.nonnull.zvalues <- function(non.null.pvalues, upper.set.zvalue=(-12), mu.factor=(-0.5), p.factor=0.95, printQ = FALSE, plotQ=FALSE) {
     
   non.null.zvalues <- qnorm(non.null.pvalues)
   
@@ -107,14 +111,18 @@ smear.extreme.nonnull.zvalues <- function(non.null.pvalues, upper.set.zvalue=(-1
   
   smear.info.mat<-cbind(pv.not.acceptable.idxs, non.null.pvalues[pv.not.acceptable.idxs], non.null.zvalues[pv.not.acceptable.idxs])
   colnames(smear.info.mat)<-c("pval idx", "pval to be replaced", "corresp zval")
-  print(smear.info.mat)
+  if(printQ == TRUE) {
+    print(smear.info.mat)    
+  }
   
   #Look at the p and z values that are "ACCEPTABLE"
   pv.accepable.idxs <- 1:length(non.null.pvalues)
   pv.accepable.idxs <- pv.accepable.idxs[-pv.not.acceptable.idxs]
   no.smear.info.mat <- cbind(pv.accepable.idxs, non.null.pvalues[-pv.not.acceptable.idxs], non.null.zvalues[-pv.not.acceptable.idxs])
   colnames(no.smear.info.mat)<-c("pval idx", "pval to be kept", "corresp zval")
-  print(no.smear.info.mat)
+  if(printQ == TRUE) {
+    print(no.smear.info.mat)    
+  }
   
   #sig <- abs(min(no.smear.info.mat[,3])/sigma.factor)
   #mmu <- 6*min(no.smear.info.mat[,3])/sigma.factor
