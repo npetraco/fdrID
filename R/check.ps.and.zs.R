@@ -38,7 +38,7 @@ check.ps.and.zs <- function(null.p.values, nonnull.p.values, printQ=FALSE, plotQ
       print(too.big.pos.nonnull.zs)
     }
     if(length(too.big.neg.nonnull.zs)> 0){
-      print(paste("These", length(too.neg.pos.nonnull.zs),"null p-values lead to -INFINITE z-values:"))
+      print(paste("These", length(too.big.neg.nonnull.zs),"null p-values lead to -INFINITE z-values:"))
       print(too.big.neg.nonnull.zs)
     }
     
