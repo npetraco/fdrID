@@ -42,6 +42,8 @@ zoomed.post.prob.plot <- function(zscores, zbounds=c(NA,NA), point.est.func, upp
     pe <- 100 * pe
     ue <- 100 * ue
     le <- 100 * le
+  } else {
+    
   }
   
   ymax <- max(ue)
