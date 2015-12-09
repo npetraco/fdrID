@@ -4,7 +4,7 @@
 \alias{hist.mode}
 \title{hist.mode}
 \usage{
-\method{hist}{mode}(scores, bre, plotQ = FALSE)
+hist.mode(scores, bre, plotQ = FALSE)
 }
 \arguments{
 \item{x}{data}

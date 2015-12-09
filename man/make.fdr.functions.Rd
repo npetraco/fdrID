@@ -8,7 +8,19 @@ make.fdr.functions(z.values, bin.midpoints, pct0 = 0.25, posterior.f.values,
   credibility.level = 0.95, interval.type = "equal.tail", plotQ = FALSE)
 }
 \arguments{
-\item{XXXX}{}
+\item{z.values}{z-values}
+
+\item{bin.midpoints}{Mid-points of the z-value bins.}
+
+\item{posterior.f.values}{f(z.values) "evidence" terms. Denominator of Bayes' theorem.}
+
+\item{pct0=0.25}{Proportion of the z-distribution used in fitting the null density f0(z) by central matching}
+
+\item{credibility.level=0.95}{Probability coverage for credibility intervals around fdr point estimates.}
+
+\item{interval.type="equal.tail"}{Type of credibility interval. May be "equal.tail" or "hpd" (highest posterior density)}
+
+\item{plotQ=FALSE}{Plot fdr point estimates with credibility intervals?}
 }
 \value{
 XXXX
