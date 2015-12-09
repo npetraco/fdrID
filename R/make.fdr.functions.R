@@ -4,7 +4,13 @@
 #' 
 #' @details XXXX
 #'
-#' @param XXXX
+#' @param z.values                   z-values
+#' @param bin.midpoints              Mid-points of the z-value bins.
+#' @param pct0=0.25                  Proportion of the z-distribution used in fitting the null density f0(z) by central matching
+#' @param posterior.f.values         f(z.values) "evidence" terms. Denominator of Bayes' theorem.  
+#' @param credibility.level=0.95     Probability coverage for credibility intervals around fdr point estimates.
+#' @param interval.type="equal.tail" Type of credibility interval. May be "equal.tail" or "hpd" (highest posterior density)
+#' @param plotQ=FALSE                Plot fdr point estimates with credibility intervals?
 #' 
 #' @return XXXX
 #'

@@ -2,28 +2,43 @@
 #' @title check.ps.and.zs
 #' @description Run diagnostic tests on p-values and z-values for both null (non-match) and non-null (match) scores.
 #' 
-#' @details Make a nice plot of overlapped histograms for each set of scores. NOTE: the y-axis is density not frequency.
+#' @details Check to see if: a. Null z-values are = +/- inf, Non-Null z-values are = -/+. If things are operating 
+#' according to plan (cf. Efron 2006) the Null z-values should be between +/- 3 with ~ 99% probability 
+#' (i.e. z_Null ~ N(0,1)  approximately). Extreme Null z-values are pathological. Check the KNM scores and/or
+#' density fit to the KNM scores for weird-ness. It may be due to overly thin tails.
 #'
-#' @param null.p.values    The p-values from the null (non-match) scores.
-#' @param nonnull.p.values The p-values from the non-null (match) scores
+#' @param null.p.values    Optional. The p-values from the null (non-match, KM) scores.
+#' @param nonnull.p.values Optional. The p-values from the non-null (match, KNM) scores.
 #' @param plotQ            Diagnostic plots?
 #' 
-#' @return A list with indices of problem p/z-values and a list containing statistical test results for uniformity/normality.
+#' @return A list with indices of problem p/z-values and a list containing statistical test results for 
+#' uniformity(p-values)/normality(z-values). 
 #'
 #' @examples
 #' XXXX
 #--------------------------------------------
-check.ps.and.zs <- function(null.p.values, nonnull.p.values, printQ=FALSE, plotQ=FALSE) {
+check.ps.and.zs <- function(null.p.values = NULL, nonnull.p.values = NULL, printQ=FALSE, plotQ=FALSE) {
   
   #Check p-values for major problems:
-  too.big.pos.null.zs <- which(qnorm(null.p.values)==Inf)
-  too.big.neg.null.zs <- which(qnorm(null.p.values)==-Inf)
-  too.big.pos.nonnull.zs <- which(qnorm(nonnull.p.values)==Inf)
-  too.big.neg.nonnull.zs <- which(qnorm(nonnull.p.values)==-Inf)
+  if(!is.null(null.p.values)) {
+    too.big.pos.null.zs <- which(qnorm(null.p.values)==Inf)
+    too.big.neg.null.zs <- which(qnorm(null.p.values)==-Inf)
+  } else {
+    too.big.pos.null.zs <- NULL
+    too.big.neg.null.zs <- NULL
+  }
   
+  if(!is.null(nonnull.p.values)) {
+    too.big.pos.nonnull.zs <- which(qnorm(nonnull.p.values)==Inf)
+    too.big.neg.nonnull.zs <- which(qnorm(nonnull.p.values)==-Inf)
+  } else {
+    too.big.pos.nonnull.zs <- NULL
+    too.big.neg.nonnull.zs <- NULL
+  }
+    
   if(printQ == TRUE) {
     
-    print("If there are any problem null p-values, they are being dropped before further diagnostic tests...")
+    print("NOTE: If there are any problem null p-values, they are being dropped before further diagnostic tests...")
     
     if(length(too.big.pos.null.zs)> 0){
       print(paste("These", length(too.big.pos.null.zs),"null p-values lead to +INFINITE z-values:"))
