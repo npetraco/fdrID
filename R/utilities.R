@@ -41,14 +41,16 @@ split.scores<-function(score.mat,lbls)
 #' 
 #' @details Make a nice plot of overlapped histograms for each set of scores. NOTE: the y-axis is density not frequency.
 #'
-#' @param null.vec Non-matching scores
+#' @param null.vec    Non-matching scores
 #' @param nonnull.vec Matching scores
-#' @param ylim.max Max on the y-axis. Helps beautify the overlayed histograms of null/non-null scores
+#' @param ylim.max    Max on the y-axis. Helps beautify the overlayed histograms of null/non-null scores
+#' @param xlab        Optional x-axis label
+#' @param main        Optional plot title
 #' 
 #' @examples
 #' XXXX
 #--------------------------------------------
-scores.histograms<-function(null.vec, nonnull.vec, xlim.min=NULL, xlim.max=NULL, ylim.max=NULL, main=NULL) {
+scores.histograms<-function(null.vec, nonnull.vec, xlim.min=NULL, xlim.max=NULL, ylim.max=NULL, xlab=NULL, main=NULL) {
   
   #A little sloppy, but good enough for now. This is not going to slow things down too much.
   if(is.null(ylim.max)) {
@@ -74,11 +76,17 @@ scores.histograms<-function(null.vec, nonnull.vec, xlim.min=NULL, xlim.max=NULL,
   } else {
     main.txt <- main
   }
+
+  if(is.null(xlab)) {
+    xlab.txt <- "Score"
+  } else {
+    xlab.txt <- xlab
+  }
   
   
   hist(null.vec, probability=TRUE, xlim=c(xlim.min.loc, xlim.max.loc), ylim=c(0,ylim.max.loc), col=rgb(1,0,0,1/4), main="",xlab="")
   par(new=TRUE)
-  hist(nonnull.vec, probability=TRUE, xlim=c(xlim.min.loc, xlim.max.loc), ylim=c(0,ylim.max.loc), col=rgb(0,1,0,1/4), main=main.txt, xlab="Score")
+  hist(nonnull.vec, probability=TRUE, xlim=c(xlim.min.loc, xlim.max.loc), ylim=c(0,ylim.max.loc), col=rgb(0,1,0,1/4), main=main.txt, xlab=xlab.txt)
   
 }
 

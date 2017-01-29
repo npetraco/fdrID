@@ -20,6 +20,9 @@ smear.extreme.nonnull.pvalues <- function(non.null.pvalues, upper.set.pvalue=1e-
   
   #indices of non-null p-values less than upper.set.pvalue. The p-values at these indices should be smeared out over a narrow negative z-interval:
   pv.not.acceptable.idxs <- which(non.null.pvalues < upper.set.pvalue)
+  if(length(pv.not.acceptable.idxs) == 0) {
+    stop("No p-values found less than upper.set.pvalue! Stoping.")
+  }
   
   smear.info.mat<-cbind(pv.not.acceptable.idxs, non.null.pvalues[pv.not.acceptable.idxs], non.null.zvalues[pv.not.acceptable.idxs])
   colnames(smear.info.mat)<-c("pval idx", "pval to be replaced", "corresp zval")
@@ -108,6 +111,9 @@ smear.extreme.nonnull.zvalues <- function(non.null.pvalues, upper.set.zvalue=(-1
   
   #indices of non-null p-values less than upper.set.pvalue. The p-values at these indices should be smeared out over a narrow negative z-interval:
   pv.not.acceptable.idxs <- which(non.null.zvalues < upper.set.zvalue)
+  if(length(pv.not.acceptable.idxs) == 0) {
+    stop("No z-values found less than upper.set.zvalue.")
+  }
   
   smear.info.mat<-cbind(pv.not.acceptable.idxs, non.null.pvalues[pv.not.acceptable.idxs], non.null.zvalues[pv.not.acceptable.idxs])
   colnames(smear.info.mat)<-c("pval idx", "pval to be replaced", "corresp zval")

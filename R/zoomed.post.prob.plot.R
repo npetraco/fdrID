@@ -11,7 +11,7 @@
 #' @examples
 #' XXXX
 #--------------------------------------------
-zoomed.post.prob.plot <- function(zscores, zbounds=c(NA,NA), point.est.func, upper.est.func, lower.est.func, prob.scale="percent", xlab=NULL, ylab=NULL, main=NULL) {
+zoomed.post.prob.plot <- function(zscores, zbounds=c(NA,NA), prbounds=c(NA,NA) ,point.est.func, upper.est.func, lower.est.func, prob.scale="percent", xlab=NULL, ylab=NULL, main=NULL) {
   
   #put in a check for NAs in zbounds
   
@@ -46,8 +46,17 @@ zoomed.post.prob.plot <- function(zscores, zbounds=c(NA,NA), point.est.func, upp
     
   }
   
-  ymax <- max(ue)
-  ymin <- min(le)
+  if(is.na(prbounds[2])) {
+    ymax <- max(ue)
+  } else {
+    ymax <- prbounds[2]
+  }
+  
+  if(is.na(prbounds[1])) {
+    ymin <- min(le)
+  } else {
+    ymin <- prbounds[1]
+  }
   
   if(is.null(xlab)) {
     xlab.txt <- "z-score"
